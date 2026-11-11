@@ -1,0 +1,15 @@
+services:
+  neo4j:
+    image: ${NEO4J_IMAGE}
+    ports:
+      - "${NEO4J_HOST}:${HTTP_PORT}:7474"
+      - "${NEO4J_HOST}:${BOLT_PORT}:7687"
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD}
+      NEO4J_server_memory_heap_initial__size: 256m
+      NEO4J_server_memory_heap_max__size: 768m
+      NEO4J_server_memory_pagecache_size: 256m
+    volumes:
+      - evidence:/data
+volumes:
+  evidence:

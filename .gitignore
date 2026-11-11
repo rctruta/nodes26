@@ -8,3 +8,4 @@ __pycache__/
 scratch
 .gates/checkpoints/
 .gates/ledger.jsonl
+.ruff_cache/

@@ -1,0 +1,30 @@
+[project]
+name = "claim-trace"
+version = "0.1.0"
+description = "Trace one fabricated claim through graph-backed agent memory"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "neo4j-agent-memory[gliner2,sentence-transformers,pydantic-ai]",
+  "pydantic-settings>=2,<3",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
+
+[tool.uv.sources]
+neo4j-agent-memory = { git = "https://github.com/neo4j-labs/agent-memory.git", rev = "9d45af5529ecb5f2fe352013468a11087f3163d4" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.gates.no_hardcoding]
+min_length = 25
+data_dirs = ["experiments"]
+code_dirs = ["claim_trace"]
+data_extensions = [".yaml", ".yml", ".json", ".toml"]
+code_extensions = [".py", ".sh"]
+exclude = []
+
+[tool.gates.claim_integrity]
+facts_file = ".gates/FACTS.yaml"
