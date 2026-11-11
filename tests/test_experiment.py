@@ -49,8 +49,11 @@ def test_version_1_definition_cannot_set_a_later_field(definition):
         Experiment.model_validate({**definition, "provenance_links": True})
 
 
-def test_strict_definition_states_every_setting_and_differs_only_in_them():
-    baseline, strict = load_experiment(DEFINITION), load_experiment(STRICT_DEFINITION)
+@pytest.mark.parametrize("name", ["catalog_lamp_strict.json",
+                                  "catalog_lamp_upstream_ontology.json"])
+def test_strict_definition_states_every_setting_and_differs_only_in_them(name):
+    baseline = load_experiment(DEFINITION)
+    strict = load_experiment(STRICT_DEFINITION.with_name(name))
     assert strict.ontology_path and strict.gliner_schema is None
     assert strict.provenance_links is True
     assert "get_entity_provenance" in strict.agent_tools

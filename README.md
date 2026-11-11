@@ -38,6 +38,9 @@ Two definitions are included. They ingest the same documents and ask the same qu
 
 - `experiments/catalog_lamp.json` — the library's defaults plus strict validation: built-in POLE+O schema, no provenance links, `search_memory` only. A version 1 definition; those settings are fixed for version 1.
 - `experiments/catalog_lamp_strict.json` — the procurement ontology in `ontologies/`, strict validation, provenance links written, and the agent given the provenance and query tools.
+- `experiments/catalog_lamp_upstream_ontology.json` — the same as the strict definition, with the library's own example ontology, unmodified, in place of the procurement one.
+
+The client settings are those of the library's ontology example, `SchemaConfig(ontology_path=...)` with the GLiNER extractor and no language model, plus the validation mode. Where each ontology comes from is recorded in [ontologies/README.md](ontologies/README.md).
 
 Type checks and source links are not evidence that a claim is true. An ontology declares which kinds of thing may be stored; it holds no list of which things exist.
 
@@ -108,6 +111,7 @@ This removes the run's containers and volumes. The saved records are untouched.
 
 - One library at one commit, one embedding model, one fabricated claim, and the two settings profiles above. Nothing here generalizes without a new run.
 - The procurement ontology was written for this experiment and committed before the run that uses it. A different ontology may extract differently.
+- With one extractor driven by the ontology, strict validation has nothing to reject: the extractor emits only the types the ontology declares. Strict validation acts when another extractor or a direct write supplies a type.
 - Similarity scores measure wording overlap with the query. They are not a measure of truth.
 - Agent answers vary between trials. The number of trials is small and is stated wherever a count is given.
 - The GLiNER and embedding-model loaders emit compatibility warnings. They are left visible in the logs. Identical embedding hashes across runs show the setup is repeatable; they do not show the warnings are harmless.

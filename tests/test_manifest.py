@@ -65,3 +65,10 @@ def test_ontology_is_frozen_and_a_later_edit_is_refused(tmp_path, settings):
     frozen.write_text(frozen.read_text() + "# edited\n")
     with pytest.raises(ValueError, match="ontology hash differs"):
         manifest.load_frozen(tmp_path)
+
+
+def test_upstream_ontology_is_the_recorded_upstream_file():
+    from claim_trace.config import ROOT
+
+    recorded = (ROOT / "ontologies" / "README.md").read_text()
+    assert manifest.sha256(ROOT / "ontologies" / "upstream_support_desk.yaml") in recorded
