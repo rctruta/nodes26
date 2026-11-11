@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: "Graph memory: a false catalog claim"
+message: "If you use this experiment, its results, or its records, please cite it."
+type: software
+authors:
+  - given-names: "Ramona C."
+    family-names: Truta
+    orcid: "https://orcid.org/0009-0008-4886-7777"
+repository-code: "https://github.com/rctruta/nodes26"
+url: "https://github.com/rctruta/nodes26"
+abstract: >-
+  A controlled, reproducible case study of one graph-backed agent-memory
+  pipeline. A fictional catalog entry describes a nonexistent lamp. The
+  experiment asks whether the official extractor persists it as a typed entity,
+  whether a later semantic search retrieves it, and whether a fresh agent uses
+  it in an answer.
+keywords:
+  - agent-memory
+  - knowledge-graph
+  - Neo4j
+  - memory-poisoning
+  - reproducibility
+license: Apache-2.0
+version: 0.1.0
+date-released: "2026-11-11"
