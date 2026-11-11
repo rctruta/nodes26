@@ -1,0 +1,57 @@
+
+# --- pre-commit framework --------------------------------------------------
+# The general-purpose checks are declared in .pre-commit-config.yaml. They
+# run from here rather than from .git/hooks, because core.hooksPath points at
+# this directory and git ignores .git/hooks while it does.
+#
+# If the config is present the runner must be too: a missing runner is a
+# precondition that was not met, not a clean run. Exit 3 says so.
+CONFIG="$(git rev-parse --show-toplevel)/.pre-commit-config.yaml"
+if [ -f "$CONFIG" ]; then
+  if command -v pre-commit >/dev/null 2>&1; then
+    pre-commit run --hook-stage pre-commit || exit 1
+  else
+    echo "  -> .pre-commit-config.yaml is present but pre-commit is not installed." >&2
+    echo "     Run: pip install pre-commit" >&2
+    echo "     Not running a declared check is not a pass." >&2
+    exit 3
+  fi
+fi
+
+# --- claim integrity gate --------------------------------------------------
+# Registered facts must still match their sources; banned claims block.
+# Stdlib python3 only, so it runs without a project venv.
+ROOT="$(git rev-parse --show-toplevel)"
+if [ -f "$ROOT/.gates/verify.py" ]; then
+  PY="$(command -v python3 || true)"
+  if [ -n "$PY" ]; then
+    "$PY" "$ROOT/.gates/verify.py" --check || {
+      echo "  -> A registered fact no longer matches its source (.gates/FACTS.yaml)." >&2
+      exit 1; }
+    "$PY" "$ROOT/.gates/scan.py" --check --quiet "$ROOT" || {
+      echo "  -> A banned claim appears in a staged file. See .gates/FACTS.yaml." >&2
+      exit 1; }
+    if [ -d "$ROOT/data" ]; then
+      "$PY" "$ROOT/.gates/no_hardcoding.py" --check || {
+        echo "  -> Code restates a value its data file already holds." >&2
+        exit 1; }
+    fi
+    # Each guarded by its own test, because a repository may adopt the set
+    # partially and a hook calling a gate that is not installed would fail on
+    # something that is not a violation.
+    # Publishing surfaces declare their own rules; a surface whose trigger
+    # file appears without them is a finding.
+    [ -f "$ROOT/.gates/check_publish_contract.py" ] && {
+      "$PY" "$ROOT/.gates/check_publish_contract.py" --check || {
+        echo "  -> A publishing surface is missing required information." >&2
+        exit 1; }; }
+    [ -f "$ROOT/.gates/scratch_external.py" ] && {
+      "$PY" "$ROOT/.gates/scratch_external.py" --check || {
+        echo "  -> A local notes folder is reachable by git, or a note is tracked." >&2
+        exit 1; }; }
+    [ -f "$ROOT/.gates/no_orphans.py" ] && {
+      "$PY" "$ROOT/.gates/no_orphans.py" --check || {
+        echo "  -> A module is imported only by its own tests." >&2
+        exit 1; }; }
+  fi
+fi

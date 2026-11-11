@@ -1,0 +1,25 @@
+#!/bin/bash
+# Enforce dirty-tree policy and (for Python) the test gate.
+# Layer 1 of 2. Bypassable locally with --no-verify; remote branch protection
+# is the backstop. See README "The Rogue Agent Lesson".
+set -e
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+if [ -n "$(git status --porcelain)" ]; then
+    echo "[pre-push] REFUSING PUSH: working tree has uncommitted or untracked files" >&2
+    echo "  Commit your changes or delete untracked files before pushing." >&2
+    exit 1
+fi
+
+PY="$ROOT/.venv/bin/python"
+[ -x "$PY" ] || PY="$(command -v python3 || true)"
+
+if [ -x "$PY" ]; then
+    echo "[pre-push] running full test suite..."
+    if ! "$PY" -m pytest tests/ -q --no-header; then
+        echo "" >&2
+        echo "[pre-push] REFUSING PUSH: test suite is red." >&2
+        exit 1
+    fi
+fi

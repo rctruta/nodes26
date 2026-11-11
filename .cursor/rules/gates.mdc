@@ -1,0 +1,9 @@
+---
+description: Repository gates - claim integrity and change safety
+alwaysApply: true
+---
+Facts must be registered in .gates/FACTS.yaml and pass python3 .gates/verify.py
+Banned claims listed in that file block commits.
+Before changing a working configuration, tag the known-good commit with the proving command in its message.
+Gate configuration is declared in pyproject.toml or .gates.toml. Do not edit scripts in .gates/.
+The gates are git hooks; they run regardless of which agent is active.

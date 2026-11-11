@@ -1,0 +1,4 @@
+# check_script_standards: findings that predate this gate's adoption.
+# They are reported, not enforced. This file may shrink, never grow.
+# 1 finding(s) at adoption
+.gates/check_version.py::"~/Projects/ai-agent-utils/templates/gates"
