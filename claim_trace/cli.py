@@ -1,4 +1,4 @@
-"""Command line entry: run, agents, analyze, stop."""
+"""Command line entry: run, agents, analyze, compare, stop."""
 import argparse
 import asyncio
 from pathlib import Path
@@ -46,6 +46,12 @@ def run_analyze(run_dir: Path) -> None:
     log.info("analysis written dir=%s missing_files=%s", run_dir, len(report.missing_files))
 
 
+def run_compare(base_dir: Path, run_dir: Path) -> None:
+    from claim_trace import compare
+
+    log.info("comparison written file=%s", compare.write(base_dir, run_dir))
+
+
 def stop(settings: Settings, run_dir: Path) -> None:
     for arm in ARMS:
         databases.stop(settings, run_dir.name, arm)
@@ -59,6 +65,10 @@ def main() -> None:
                          ("analyze", "Rewrite a run's analysis from its saved records."),
                          ("stop", "Remove a run's databases and volumes.")):
         commands.add_parser(name, help=helper).add_argument("run_dir", type=Path)
+    comparing = commands.add_parser(
+        "compare", help="Write a side-by-side comparison of two runs beside the second.")
+    comparing.add_argument("base_dir", type=Path)
+    comparing.add_argument("run_dir", type=Path)
     args = parser.parse_args()
     settings = Settings()
     configure(settings.log_level)
@@ -66,7 +76,9 @@ def main() -> None:
         run(settings, args.experiment.resolve(strict=True))
         return
     run_dir = args.run_dir.resolve(strict=True)
-    if args.command == "agents":
+    if args.command == "compare":
+        run_compare(args.base_dir.resolve(strict=True), run_dir)
+    elif args.command == "agents":
         run_agents(settings, run_dir)
     elif args.command == "analyze":
         run_analyze(run_dir)

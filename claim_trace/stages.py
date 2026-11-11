@@ -21,10 +21,13 @@ from claim_trace.constants import (
     ENTITY_NODES_QUERY,
     ENTITY_SEARCH_FILE,
     EXPANSION_ARMS,
+    EXTRACTOR_METADATA_KEY,
     INGEST_FILE,
     MESSAGE_ROLE,
     MESSAGE_SEARCH_FILE,
+    MESSAGE_MENTIONS_QUERY,
     NEO4J_USERNAME,
+    ONTOLOGY_FILE,
     SESSION_ID,
     STAGE_BASE,
     STAGE_EXPANDED,
@@ -45,14 +48,19 @@ from claim_trace.models import (
 log = get_logger(__name__)
 
 
-def client_settings(settings: Settings, experiment: Experiment, arm: str) -> BoltSettings:
-    """Local extraction and embedding only: no language model takes part in ingestion."""
+def client_settings(settings: Settings, experiment: Experiment, arm: str,
+                    run_dir: Path) -> BoltSettings:
+    """Local extraction and embedding only: no language model takes part in ingestion.
+
+    An ontology is read from the run's frozen copy, never from the working tree.
+    """
+    ontology = None if experiment.ontology_path is None else str(run_dir / ONTOLOGY_FILE)
     return BoltSettings(
         neo4j=Neo4jConfig(uri=databases.bolt_uri(settings, arm), username=NEO4J_USERNAME,
                           password=settings.neo4j_password),
         llm=None,
         embedding=experiment.embedding_model,
-        schema_config=SchemaConfig(ontology_path=None,
+        schema_config=SchemaConfig(ontology_path=ontology,
                                    validation_mode=experiment.validation_mode),
         extraction=ExtractionConfig(extractor_type=ExtractorType.PIPELINE,
                                     enable_spacy=False, enable_gliner=True,
@@ -92,13 +100,34 @@ async def ingest(client, experiment: Experiment, arm: str, stage: str) -> Ingest
         if existing:
             raise RuntimeError(f"Arm {arm} database is not empty: {existing} messages")
     messages = []
+    links = 0
     for index, document in enumerate(documents_for(experiment, arm, stage)):
         session = SESSION_ID.format(experiment_id=experiment.experiment_id, arm=arm,
                                     stage=stage, index=index)
         message = await client.short_term.add_message(session, MESSAGE_ROLE, document)
         messages.append(IngestedMessage(id=str(message.id), session=session, text=document))
+        if experiment.provenance_links:
+            links += await link_provenance(client, str(message.id))
     return IngestRecord(arm=arm, stage=stage, validation=str(client.validation_mode),
-                        messages=messages)
+                        messages=messages,
+                        provenance_links_written=links if experiment.provenance_links else None)
+
+
+async def link_provenance(client, message_id: str) -> int:
+    """Record, through the library's provenance API, what one message's extraction produced.
+
+    The library stores a mention's position, confidence and extractor but writes no
+    provenance link itself. Every value passed on here is one it stored.
+    """
+    mentions = await client.query.cypher(MESSAGE_MENTIONS_QUERY, {"message_id": message_id})
+    for mention in mentions:
+        extractor = json.loads(mention["metadata"])[EXTRACTOR_METADATA_KEY]
+        await client.long_term.link_entity_to_message(
+            mention["id"], message_id, confidence=mention["confidence"],
+            start_pos=mention["start_pos"], end_pos=mention["end_pos"])
+        await client.long_term.link_entity_to_extractor(
+            mention["id"], extractor, confidence=mention["confidence"])
+    return len(mentions)
 
 
 def embedding_sha256(embedding: list[float] | None) -> str | None:
@@ -109,14 +138,17 @@ def embedding_sha256(embedding: list[float] | None) -> str | None:
 
 async def search_entities(client, experiment: Experiment, arm: str,
                           stage: str) -> EntitySearchRecord:
-    nodes = [
-        EntityNode(
-            id=row["id"], name=row["name"], type=row["type"], labels=row["labels"],
+    nodes = []
+    for row in await client.query.cypher(ENTITY_NODES_QUERY):
+        provenance = await client.long_term.get_entity_provenance(row["id"])
+        nodes.append(EntityNode(
+            id=row["id"], name=row["name"], type=row["type"], subtype=row["subtype"],
+            labels=row["labels"],
             sources=[SourceMessage(**source) for source in row["sources"] if source["id"]],
             embedding_sha256=embedding_sha256(row["embedding"]),
-        )
-        for row in await client.query.cypher(ENTITY_NODES_QUERY)
-    ]
+            provenance_sources=[str(s["message_id"]) for s in provenance["sources"]],
+            provenance_extractors=[str(e["name"]) for e in provenance["extractors"]],
+        ))
     searches: dict[str, dict[str, list[EntityHit]]] = {}
     for query in experiment.queries:
         searches[query] = {}
@@ -148,7 +180,7 @@ async def search_messages(client, experiment: Experiment, arm: str,
 
 async def run_arm(settings: Settings, experiment: Experiment, arm: str, run_dir: Path) -> None:
     """Ingest and search every stage of one arm on its own database."""
-    client = await connect(client_settings(settings, experiment, arm))
+    client = await connect(client_settings(settings, experiment, arm, run_dir))
     try:
         for stage in stages_for(arm):
             names = {"arm": arm, "stage": stage}

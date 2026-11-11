@@ -1,0 +1,28 @@
+{
+  "arm": "single",
+  "stage": "base",
+  "validation": "strict",
+  "messages": [
+    {
+      "id": "eb12682a-1982-44b0-91f1-a58a3f591c4c",
+      "session": "catalog_lamp_upstream_ontology-single-base-0",
+      "text": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price."
+    },
+    {
+      "id": "9159afa7-63c3-4823-9982-638334ad284d",
+      "session": "catalog_lamp_upstream_ontology-single-base-1",
+      "text": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+    },
+    {
+      "id": "17925eb9-d0bd-4b24-ad6f-e14995e16474",
+      "session": "catalog_lamp_upstream_ontology-single-base-2",
+      "text": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+    },
+    {
+      "id": "e03a18bd-defc-447e-ae3e-02db28d16e0c",
+      "session": "catalog_lamp_upstream_ontology-single-base-3",
+      "text": "The Meadowlight Lamp is a standard desk lamp sold for offices. The catalog describes it as independently certified for exceptional energy efficiency and recommends it for sustainable office upgrades."
+    }
+  ],
+  "provenance_links_written": 7
+}

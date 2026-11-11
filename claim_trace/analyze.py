@@ -27,7 +27,9 @@ from claim_trace.models import (
     Expansion,
     Experiment,
     IngestRecord,
+    Manifest,
     MessageSearchRecord,
+    RunSettings,
     SearchPosition,
     StageRow,
     SubjectNode,
@@ -61,10 +63,13 @@ def _stage_row(experiment: Experiment, arm: str, stage: str, ingest: IngestRecor
         if len(matches) > 1:
             raise ValueError(f"Multiple {subject} nodes in {arm}-{stage}")
         if matches:
-            node = SubjectNode(id=matches[0].id, type=matches[0].type,
-                               labels=matches[0].labels,
-                               source_count=len(matches[0].sources),
-                               embedding_sha256=matches[0].embedding_sha256)
+            found = matches[0]
+            node = SubjectNode(
+                id=found.id, type=found.type, subtype=found.subtype, labels=found.labels,
+                source_count=len(found.sources), embedding_sha256=found.embedding_sha256,
+                provenance_sources=(None if found.provenance_sources is None
+                                    else len(found.provenance_sources)),
+                provenance_extractors=found.provenance_extractors)
         entity_hit = next((SearchPosition(rank=h.rank, similarity=h.similarity, id=h.id)
                            for h in entities.searches[query][threshold]
                            if h.name == subject), None)
@@ -111,6 +116,21 @@ def _trial_row(experiment: Experiment, path: Path, trial: AgentTrial) -> TrialRo
         answer_excerpt=trial.output[:ANSWER_EXCERPT_CHARS],
         input_tokens=trial.usage.get("input_tokens"),
         output_tokens=trial.usage.get("output_tokens"),
+        tools_used=sorted({call.tool for call in trial.calls}),
+        stopped=trial.stopped,
+    )
+
+
+def run_settings(experiment: Experiment, manifest: Manifest) -> RunSettings:
+    return RunSettings(
+        schema_version=experiment.schema_version,
+        validation_mode=experiment.validation_mode,
+        gliner_schema=experiment.gliner_schema,
+        ontology_source_name=manifest.ontology_source_name,
+        ontology_sha256=manifest.ontology_sha256,
+        provenance_links=experiment.provenance_links,
+        agent_tools=experiment.agent_tools,
+        memory_library_version=manifest.memory_library_version,
     )
 
 
@@ -144,7 +164,8 @@ def analyze(run_dir: Path) -> Analysis:
     return Analysis(
         run_id=manifest.run_id, experiment_id=experiment.experiment_id,
         experiment_sha256=manifest.experiment_sha256, git_commit=manifest.git_commit,
-        git_dirty=manifest.git_dirty, target=experiment.target_entity,
+        git_dirty=manifest.git_dirty, settings=run_settings(experiment, manifest),
+        target=experiment.target_entity,
         control_entity=experiment.control_entity, primary_query=experiment.primary_query,
         primary_threshold=float(experiment.primary_threshold),
         core_complete=not core_missing, agents_complete=not agent_missing,
@@ -157,13 +178,32 @@ def analyze(run_dir: Path) -> Analysis:
     )
 
 
-def _position(hit: SearchPosition | None, ran: bool) -> str:
+def position(hit: SearchPosition | None, ran: bool) -> str:
     if not ran:
         return "not run"
     return "absent" if hit is None else f"{hit.rank} / {hit.similarity:.4f}"
 
 
+def describe_ontology(settings: RunSettings) -> str:
+    if settings.ontology_sha256 is None:
+        return f"none; built-in schema `{settings.gliner_schema}`"
+    return f"`{settings.ontology_source_name}` (SHA-256 `{settings.ontology_sha256}`)"
+
+
+def type_label(node) -> str:
+    if node is None:
+        return "absent"
+    return node.type if node.subtype is None else f"{node.type}:{node.subtype}"
+
+
+def provenance_count(node) -> str:
+    if node is None or node.provenance_sources is None:
+        return "not recorded"
+    return str(node.provenance_sources)
+
+
 def markdown(report: Analysis) -> str:
+    settings = report.settings
     lines = [
         "# Run analysis", "",
         f"Run: `{report.run_id}`",
@@ -175,22 +215,31 @@ def markdown(report: Analysis) -> str:
         f"Primary search threshold: {report.primary_threshold}",
         f"Core ingestion and retrieval complete: **{'yes' if report.core_complete else 'no'}**",
         f"Agent trials complete: **{'yes' if report.agents_complete else 'no'}**", "",
+        "## Settings", "",
+        f"- Ontology: {describe_ontology(settings)}",
+        f"- Validation mode: {settings.validation_mode}",
+        "- Provenance links written at ingestion: "
+        f"{'yes' if settings.provenance_links else 'no'}",
+        f"- Agent tools: {', '.join(settings.agent_tools)}",
+        f"- Memory library version: {settings.memory_library_version}", "",
         "## Graph and retrieval", "",
         "Each row follows the arm's subject entity: the control entity in the control arm,",
-        "the target in the others. `Target nodes` counts nodes named after the target.", "",
-        "| Arm | Stage | Subject | Type | Sources | Entities | Target nodes "
+        "the target in the others. `Target nodes` counts nodes named after the target.",
+        "`Provenance` counts the source messages the library's provenance call returned.", "",
+        "| Arm | Stage | Subject | Type | Sources | Provenance | Entities | Target nodes "
         "| Entity rank / score | Message rank / score |",
-        "| --- | --- | --- | --- | ---: | ---: | ---: | --- | --- |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |",
     ]
     for row in report.rows:
         lines.append(
             f"| {row.arm} | {row.stage} | {row.subject} | "
-            f"{row.node.type if row.node else 'absent'} | "
+            f"{type_label(row.node)} | "
             f"{row.node.source_count if row.node else 0} | "
+            f"{provenance_count(row.node)} | "
             f"{'not run' if row.entity_count is None else row.entity_count} | "
             f"{'not run' if row.target_nodes is None else row.target_nodes} | "
-            f"{_position(row.entity_hit, row.entity_search_ran)} | "
-            f"{_position(row.message_hit, row.message_search_ran)} |")
+            f"{position(row.entity_hit, row.entity_search_ran)} | "
+            f"{position(row.message_hit, row.message_search_ran)} |")
     lines += ["", "## Expansion comparison", ""]
     for arm, expansion in report.expansions.items():
         if expansion is None:
@@ -205,14 +254,16 @@ def markdown(report: Analysis) -> str:
         "", "## Agent trials", "",
         "A name in a tool result or an answer is not a recommendation. Read the full trial",
         "file before labeling one.", "",
-        "| Arm | Memory | Trial | Subject | Tool calls | In tool result | In answer |",
-        "| --- | --- | ---: | --- | ---: | --- | --- |",
+        "| Arm | Memory | Trial | Subject | Tool calls | Tools used | In tool result "
+        "| In answer |",
+        "| --- | --- | ---: | --- | ---: | --- | --- | --- |",
     ]
     for trial in report.trials:
         lines.append(
             f"| {trial.arm} | {trial.memory_type} | {trial.trial} | {trial.subject} | "
-            f"{trial.tool_calls} | {'yes' if trial.subject_in_tool_result else 'no'} | "
-            f"{'yes' if trial.subject_in_answer else 'no'} |")
+            f"{trial.tool_calls} | {', '.join(trial.tools_used) or 'none'} | "
+            f"{'yes' if trial.subject_in_tool_result else 'no'} | "
+            f"{trial.stopped or ('yes' if trial.subject_in_answer else 'no')} |")
     lines += ["", "## Missing planned files", ""]
     lines += [f"- `{name}`" for name in report.missing_files] or ["None."]
     return "\n".join(lines) + "\n"

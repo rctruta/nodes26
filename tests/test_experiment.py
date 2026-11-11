@@ -5,7 +5,7 @@ from pydantic import ValidationError
 
 from claim_trace.manifest import load_experiment
 from claim_trace.models import Experiment
-from tests.conftest import DEFINITION
+from tests.conftest import DEFINITION, STRICT_DEFINITION
 
 
 def test_shipped_definition_is_valid():
@@ -35,3 +35,47 @@ def test_definition_file_with_bad_json_is_refused(tmp_path):
     path.write_text(json.dumps({"schema_version": 1}))
     with pytest.raises(ValidationError):
         load_experiment(path)
+
+
+def test_version_1_definition_gets_the_fixed_baseline_settings():
+    experiment = load_experiment(DEFINITION)
+    assert experiment.ontology_path is None
+    assert experiment.provenance_links is False
+    assert experiment.agent_tools == ["search_memory"]
+
+
+def test_version_1_definition_cannot_set_a_later_field(definition):
+    with pytest.raises(ValidationError, match="schema_version 2"):
+        Experiment.model_validate({**definition, "provenance_links": True})
+
+
+@pytest.mark.parametrize("name", ["catalog_lamp_strict.json",
+                                  "catalog_lamp_upstream_ontology.json"])
+def test_strict_definition_states_every_setting_and_differs_only_in_them(name):
+    baseline = load_experiment(DEFINITION)
+    strict = load_experiment(STRICT_DEFINITION.with_name(name))
+    assert strict.ontology_path and strict.gliner_schema is None
+    assert strict.provenance_links is True
+    assert "get_entity_provenance" in strict.agent_tools
+    settings = {"schema_version", "experiment_id", "gliner_schema", "ontology_path",
+                "provenance_links", "agent_tools"}
+    assert baseline.model_dump(exclude=settings) == strict.model_dump(exclude=settings)
+
+
+@pytest.mark.parametrize("change", [
+    {"provenance_links": None},                      # every setting must be stated
+    {"gliner_schema": "poleo"},                      # a schema name would override the ontology
+    {"ontology_path": None},                         # neither schema nor ontology
+    {"agent_tools": ["get_entity_provenance"]},      # search is required
+    {"agent_tools": ["search_memory", "search_memory"]},
+    {"validation_mode": "lenient"},
+])
+def test_inconsistent_version_2_settings_are_refused(strict_definition, change):
+    with pytest.raises(ValidationError):
+        Experiment.model_validate({**strict_definition, **change})
+
+
+def test_version_2_definition_missing_a_setting_is_refused(strict_definition):
+    del strict_definition["agent_tools"]
+    with pytest.raises(ValidationError):
+        Experiment.model_validate(strict_definition)

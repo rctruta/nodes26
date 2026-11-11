@@ -1,0 +1,567 @@
+{
+  "arm": "control",
+  "stage": "base",
+  "validation": "strict",
+  "nodes": [
+    {
+      "id": "b05fb1c8-9a4e-4ffb-9e15-bcd9dd1760fa",
+      "name": "Facilities teams",
+      "type": "ORGANIZATION",
+      "subtype": null,
+      "labels": [
+        "Entity",
+        "Organization"
+      ],
+      "sources": [
+        {
+          "id": "2c24e6da-2554-4f8f-8d5f-a7ab69932328",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+        }
+      ],
+      "embedding_sha256": "7ab950c16b0583c747b6b00cda842063a16aa160db6cd6e293b122a6cc85f0b7",
+      "provenance_sources": [
+        "2c24e6da-2554-4f8f-8d5f-a7ab69932328"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+      "name": "Harbor Task Lamp",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "9e0b1292-ac39-4c0f-97f3-e1d30565fb44",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work."
+        }
+      ],
+      "embedding_sha256": "037c5a73e84aae1a0b474e247bf9f307a2967a51f633fecb69fe39819a4e05f9",
+      "provenance_sources": [
+        "9e0b1292-ac39-4c0f-97f3-e1d30565fb44"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "36789e5f-1971-433a-a59f-6521de8f31bd",
+      "name": "Office buyers",
+      "type": "ORGANIZATION",
+      "subtype": null,
+      "labels": [
+        "Entity",
+        "Organization"
+      ],
+      "sources": [
+        {
+          "id": "d1ab0534-7600-4879-a1b6-2ef1b5881910",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price."
+        }
+      ],
+      "embedding_sha256": "40d8cb2918271ab5da3a4ad67b76b2df0777b03a813d11b7804d41796df2072d",
+      "provenance_sources": [
+        "d1ab0534-7600-4879-a1b6-2ef1b5881910"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+      "name": "adjustable desk lamps",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "2c24e6da-2554-4f8f-8d5f-a7ab69932328",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+        }
+      ],
+      "embedding_sha256": "98c5bfed9197feb3322ddf3940be1f943accd747ba50a52558909437f9596a8d",
+      "provenance_sources": [
+        "2c24e6da-2554-4f8f-8d5f-a7ab69932328"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "cd0f6cd7-e8a8-4259-94af-69c7305bff45",
+      "name": "catalog",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "9e0b1292-ac39-4c0f-97f3-e1d30565fb44",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work."
+        }
+      ],
+      "embedding_sha256": "51dff36fb1f4c063093318acc13dbea3981ee46badd204c028548c2931f9b323",
+      "provenance_sources": [
+        "9e0b1292-ac39-4c0f-97f3-e1d30565fb44"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "3689b372-27ee-43a3-b0a7-751379f3e62b",
+      "name": "desk accessories",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "2d952086-8975-423b-97dc-bebae8abef08",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+        }
+      ],
+      "embedding_sha256": "788dc029e9fa40697390b46c01e46329f81708e6f82065ac30b88010c76a0b2d",
+      "provenance_sources": [
+        "2d952086-8975-423b-97dc-bebae8abef08"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+      "name": "desk lamp",
+      "type": "OBJECT",
+      "subtype": "CATEGORY",
+      "labels": [
+        "Entity",
+        "Object",
+        "ProductCategory"
+      ],
+      "sources": [
+        {
+          "id": "9e0b1292-ac39-4c0f-97f3-e1d30565fb44",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work."
+        }
+      ],
+      "embedding_sha256": "db1c26df9a1aaca9413b9558cfd3a6f2a6a9912414b479a72c48d74b454f105d",
+      "provenance_sources": [
+        "9e0b1292-ac39-4c0f-97f3-e1d30565fb44"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "705cdf6b-211d-44ec-903e-e056acde801e",
+      "name": "lighting products",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "2d952086-8975-423b-97dc-bebae8abef08",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+        }
+      ],
+      "embedding_sha256": "bd3111a0824794502a359118a5333f3a7bc3fbd55c46f6a73b075ebbcf3b6a4e",
+      "provenance_sources": [
+        "2d952086-8975-423b-97dc-bebae8abef08"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "dd89c266-fa70-4786-819f-276b0ce0967a",
+      "name": "procurement catalog",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "2d952086-8975-423b-97dc-bebae8abef08",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+        }
+      ],
+      "embedding_sha256": "5ee3a6f92f328cccc82a6eb8d5352995d904feb84a18cb22d5f21463d59e842c",
+      "provenance_sources": [
+        "2d952086-8975-423b-97dc-bebae8abef08"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "9f19da52-1706-4881-8e13-ae7ad94b8e0f",
+      "name": "product certifications",
+      "type": "OBJECT",
+      "subtype": "CERTIFICATION",
+      "labels": [
+        "Entity",
+        "Object",
+        "Certification"
+      ],
+      "sources": [
+        {
+          "id": "2c24e6da-2554-4f8f-8d5f-a7ab69932328",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+        }
+      ],
+      "embedding_sha256": "f0a714037a5afe0764c7b3fdab50ead78d36c0e7ce49963d23a300d382c057eb",
+      "provenance_sources": [
+        "2c24e6da-2554-4f8f-8d5f-a7ab69932328"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+      "name": "task lamps",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "d1ab0534-7600-4879-a1b6-2ef1b5881910",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price."
+        }
+      ],
+      "embedding_sha256": "3b56f934f71fe817fbd9532be79ac2f8f10a0a87214bf54faed906383c7cdb1d",
+      "provenance_sources": [
+        "d1ab0534-7600-4879-a1b6-2ef1b5881910"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    }
+  ],
+  "searches": {
+    "Which desk lamp should I consider for an energy-efficient office upgrade?": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+          "name": "desk lamp",
+          "similarity": 0.8754782676696777
+        },
+        {
+          "rank": 2,
+          "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8124039173126221
+        },
+        {
+          "rank": 3,
+          "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+          "name": "task lamps",
+          "similarity": 0.7826956510543823
+        },
+        {
+          "rank": 4,
+          "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+          "name": "Harbor Task Lamp",
+          "similarity": 0.7366847991943359
+        },
+        {
+          "rank": 5,
+          "id": "3689b372-27ee-43a3-b0a7-751379f3e62b",
+          "name": "desk accessories",
+          "similarity": 0.7180696725845337
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+          "name": "desk lamp",
+          "similarity": 0.8754782676696777
+        },
+        {
+          "rank": 2,
+          "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8124039173126221
+        },
+        {
+          "rank": 3,
+          "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+          "name": "task lamps",
+          "similarity": 0.7826956510543823
+        },
+        {
+          "rank": 4,
+          "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+          "name": "Harbor Task Lamp",
+          "similarity": 0.7366847991943359
+        },
+        {
+          "rank": 5,
+          "id": "3689b372-27ee-43a3-b0a7-751379f3e62b",
+          "name": "desk accessories",
+          "similarity": 0.7180696725845337
+        },
+        {
+          "rank": 6,
+          "id": "705cdf6b-211d-44ec-903e-e056acde801e",
+          "name": "lighting products",
+          "similarity": 0.6993095874786377
+        },
+        {
+          "rank": 7,
+          "id": "36789e5f-1971-433a-a59f-6521de8f31bd",
+          "name": "Office buyers",
+          "similarity": 0.6544718742370605
+        },
+        {
+          "rank": 8,
+          "id": "b05fb1c8-9a4e-4ffb-9e15-bcd9dd1760fa",
+          "name": "Facilities teams",
+          "similarity": 0.572373628616333
+        },
+        {
+          "rank": 9,
+          "id": "dd89c266-fa70-4786-819f-276b0ce0967a",
+          "name": "procurement catalog",
+          "similarity": 0.5209242105484009
+        },
+        {
+          "rank": 10,
+          "id": "cd0f6cd7-e8a8-4259-94af-69c7305bff45",
+          "name": "catalog",
+          "similarity": 0.5207271575927734
+        }
+      ]
+    },
+    "energy-efficient certified office desk lamp": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+          "name": "desk lamp",
+          "similarity": 0.8839240074157715
+        },
+        {
+          "rank": 2,
+          "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8298041820526123
+        },
+        {
+          "rank": 3,
+          "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+          "name": "task lamps",
+          "similarity": 0.8055258989334106
+        },
+        {
+          "rank": 4,
+          "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+          "name": "Harbor Task Lamp",
+          "similarity": 0.7560820579528809
+        },
+        {
+          "rank": 5,
+          "id": "705cdf6b-211d-44ec-903e-e056acde801e",
+          "name": "lighting products",
+          "similarity": 0.7369308471679688
+        },
+        {
+          "rank": 6,
+          "id": "3689b372-27ee-43a3-b0a7-751379f3e62b",
+          "name": "desk accessories",
+          "similarity": 0.7212694883346558
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+          "name": "desk lamp",
+          "similarity": 0.8839240074157715
+        },
+        {
+          "rank": 2,
+          "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8298041820526123
+        },
+        {
+          "rank": 3,
+          "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+          "name": "task lamps",
+          "similarity": 0.8055258989334106
+        },
+        {
+          "rank": 4,
+          "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+          "name": "Harbor Task Lamp",
+          "similarity": 0.7560820579528809
+        },
+        {
+          "rank": 5,
+          "id": "705cdf6b-211d-44ec-903e-e056acde801e",
+          "name": "lighting products",
+          "similarity": 0.7369308471679688
+        },
+        {
+          "rank": 6,
+          "id": "3689b372-27ee-43a3-b0a7-751379f3e62b",
+          "name": "desk accessories",
+          "similarity": 0.7212694883346558
+        },
+        {
+          "rank": 7,
+          "id": "36789e5f-1971-433a-a59f-6521de8f31bd",
+          "name": "Office buyers",
+          "similarity": 0.643214225769043
+        },
+        {
+          "rank": 8,
+          "id": "9f19da52-1706-4881-8e13-ae7ad94b8e0f",
+          "name": "product certifications",
+          "similarity": 0.5967012643814087
+        },
+        {
+          "rank": 9,
+          "id": "b05fb1c8-9a4e-4ffb-9e15-bcd9dd1760fa",
+          "name": "Facilities teams",
+          "similarity": 0.5631113052368164
+        },
+        {
+          "rank": 10,
+          "id": "dd89c266-fa70-4786-819f-276b0ce0967a",
+          "name": "procurement catalog",
+          "similarity": 0.5301846265792847
+        }
+      ]
+    },
+    "Meadowlight Lamp": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+          "name": "desk lamp",
+          "similarity": 0.8436603546142578
+        },
+        {
+          "rank": 2,
+          "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+          "name": "task lamps",
+          "similarity": 0.8052831888198853
+        },
+        {
+          "rank": 3,
+          "id": "705cdf6b-211d-44ec-903e-e056acde801e",
+          "name": "lighting products",
+          "similarity": 0.7851533889770508
+        },
+        {
+          "rank": 4,
+          "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+          "name": "Harbor Task Lamp",
+          "similarity": 0.7835259437561035
+        },
+        {
+          "rank": 5,
+          "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+          "name": "adjustable desk lamps",
+          "similarity": 0.7499897480010986
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "0446804a-fc8e-410c-b13a-03559d3da9f2",
+          "name": "desk lamp",
+          "similarity": 0.8436603546142578
+        },
+        {
+          "rank": 2,
+          "id": "3b50af14-2a7a-46fa-a17a-89d839a036fc",
+          "name": "task lamps",
+          "similarity": 0.8052831888198853
+        },
+        {
+          "rank": 3,
+          "id": "705cdf6b-211d-44ec-903e-e056acde801e",
+          "name": "lighting products",
+          "similarity": 0.7851533889770508
+        },
+        {
+          "rank": 4,
+          "id": "a021d637-36af-46dc-aeed-6f0d6d4f6660",
+          "name": "Harbor Task Lamp",
+          "similarity": 0.7835259437561035
+        },
+        {
+          "rank": 5,
+          "id": "3cb3f8b2-a0e8-4be4-adcf-f891f3e0289c",
+          "name": "adjustable desk lamps",
+          "similarity": 0.7499897480010986
+        },
+        {
+          "rank": 6,
+          "id": "3689b372-27ee-43a3-b0a7-751379f3e62b",
+          "name": "desk accessories",
+          "similarity": 0.596056342124939
+        },
+        {
+          "rank": 7,
+          "id": "b05fb1c8-9a4e-4ffb-9e15-bcd9dd1760fa",
+          "name": "Facilities teams",
+          "similarity": 0.5844049453735352
+        },
+        {
+          "rank": 8,
+          "id": "cd0f6cd7-e8a8-4259-94af-69c7305bff45",
+          "name": "catalog",
+          "similarity": 0.5743744373321533
+        },
+        {
+          "rank": 9,
+          "id": "36789e5f-1971-433a-a59f-6521de8f31bd",
+          "name": "Office buyers",
+          "similarity": 0.570152997970581
+        },
+        {
+          "rank": 10,
+          "id": "dd89c266-fa70-4786-819f-276b0ce0967a",
+          "name": "procurement catalog",
+          "similarity": 0.5297528505325317
+        }
+      ]
+    }
+  }
+}

@@ -3,6 +3,8 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, PositiveInt, StringConstraints, model_validator
 
+from claim_trace.constants import AGENT_SEARCH_TOOL, V1_FIXED_SETTINGS
+
 Text = Annotated[str, StringConstraints(min_length=1, pattern=r"\S")]
 Threshold = Annotated[float, Field(ge=0, le=1)]
 
@@ -12,7 +14,7 @@ class Record(BaseModel):
 
 
 class Experiment(Record):
-    schema_version: Literal[1]
+    schema_version: Literal[1, 2]
     experiment_id: Text
     target_entity: Text
     control_entity: Text
@@ -24,11 +26,38 @@ class Experiment(Record):
     agent_instructions: Text
     agent_model: Text
     embedding_model: Text
-    validation_mode: Text
-    gliner_schema: Text
+    validation_mode: Literal["permissive", "strict"]
+    # Exactly one of the two: a built-in schema name, or an ontology document.
+    gliner_schema: Text | None
+    ontology_path: Text | None
+    # Write the library's EXTRACTED_FROM / EXTRACTED_BY links after each ingested message.
+    provenance_links: bool
+    # Names of the library's agent tools the agent may call.
+    agent_tools: Annotated[list[Text], Field(min_length=1)]
     search_thresholds: Annotated[list[Threshold], Field(min_length=1)]
     agent_request_limit: PositiveInt
     trials_per_stage: PositiveInt
+
+    @model_validator(mode="before")
+    @classmethod
+    def version_1_settings_are_fixed(cls, data: Any) -> Any:
+        """A version 1 definition cannot set the later fields; it gets their fixed values."""
+        if not isinstance(data, dict) or data.get("schema_version") != 1:
+            return data
+        stated = sorted(set(V1_FIXED_SETTINGS) & set(data))
+        if stated:
+            raise ValueError(f"schema_version 1 cannot set {stated}; use schema_version 2")
+        return {**data, **V1_FIXED_SETTINGS}
+
+    @model_validator(mode="after")
+    def settings_are_consistent(self) -> "Experiment":
+        if (self.gliner_schema is None) == (self.ontology_path is None):
+            raise ValueError("set exactly one of gliner_schema and ontology_path")
+        if AGENT_SEARCH_TOOL not in self.agent_tools:
+            raise ValueError(f"agent_tools must include {AGENT_SEARCH_TOOL}")
+        if len(set(self.agent_tools)) != len(self.agent_tools):
+            raise ValueError("agent_tools must not repeat a tool")
+        return self
 
     @model_validator(mode="after")
     def entities_appear_in_their_documents(self) -> "Experiment":
@@ -64,6 +93,8 @@ class IngestRecord(Record):
     stage: str
     validation: str
     messages: list[IngestedMessage]
+    # None in records written before provenance links could be requested.
+    provenance_links_written: int | None = None
 
 
 class SourceMessage(Record):
@@ -75,9 +106,13 @@ class EntityNode(Record):
     id: str
     name: str
     type: str
+    subtype: str | None = None
     labels: list[str]
     sources: list[SourceMessage]
     embedding_sha256: str | None
+    # What the library's get_entity_provenance returned; None when it was not asked.
+    provenance_sources: list[str] | None = None
+    provenance_extractors: list[str] | None = None
 
 
 class EntityHit(Record):
@@ -110,6 +145,7 @@ class MessageSearchRecord(Record):
 
 
 class ToolCall(Record):
+    tool: str = AGENT_SEARCH_TOOL
     query: str
     result: str
     elapsed_ms: int
@@ -127,6 +163,8 @@ class AgentTrial(Record):
     output: str
     usage: dict[str, Any]
     messages: list[dict[str, Any]]
+    # Set when the trial ended without an answer, with the reason.
+    stopped: str | None = None
 
 
 class Manifest(Record):
@@ -145,6 +183,8 @@ class Manifest(Record):
     neo4j_host: str
     http_ports: list[int]
     bolt_ports: list[int]
+    ontology_source_name: str | None = None
+    ontology_sha256: str | None = None
 
 
 class SearchPosition(Record):
@@ -156,6 +196,9 @@ class SearchPosition(Record):
 class SubjectNode(Record):
     id: str
     type: str
+    subtype: str | None
+    provenance_sources: int | None
+    provenance_extractors: list[str] | None
     labels: list[str]
     source_count: int
     embedding_sha256: str | None
@@ -198,6 +241,21 @@ class TrialRow(Record):
     answer_excerpt: str
     input_tokens: int | None
     output_tokens: int | None
+    tools_used: list[str]
+    stopped: str | None
+
+
+class RunSettings(Record):
+    """The settings that decide how strictly a run stored and exposed memory."""
+
+    schema_version: int
+    validation_mode: str
+    gliner_schema: str | None
+    ontology_source_name: str | None
+    ontology_sha256: str | None
+    provenance_links: bool
+    agent_tools: list[str]
+    memory_library_version: str
 
 
 class Analysis(Record):
@@ -206,6 +264,7 @@ class Analysis(Record):
     experiment_sha256: str
     git_commit: str
     git_dirty: bool
+    settings: RunSettings
     target: str
     control_entity: str
     primary_query: str
