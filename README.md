@@ -19,9 +19,27 @@ Four arms, each on its own disposable Neo4j instance:
 
 Every document is ingested with `short_term.add_message()` and its default arguments. Entity nodes are never seeded by hand. After each stage the same queries are run two ways: `long_term.search_entities()` over extracted **entities**, and `short_term.search_messages()` over stored **messages**. Here "short-term" is the library's API name; the messages are persisted in Neo4j, so this is not an ephemeral context window.
 
-Agent trials then give a fresh agent one read-only tool, the library's own `search_memory`, restricted to one memory type per trial. The agent has no other tool and cannot execute anything.
+Agent trials then give a fresh agent the library's own read-only tools named in the definition, with `search_memory` restricted to one memory type per trial. The agent cannot write to memory or execute anything.
 
-The definition in `experiments/catalog_lamp.json` selects strict validation and the library's built-in POLE+O GLiNER schema. These are **type checks**, not evidence that the catalog claim is true. Extraction and embedding run locally; no language model takes part in ingestion or search.
+Extraction and embedding run locally; no language model takes part in ingestion or search.
+
+## Settings a definition controls
+
+How strictly memory is stored and exposed is set in the definition, frozen with the run, and printed at the top of its analysis.
+
+| Setting | What it does |
+| --- | --- |
+| `validation_mode` | `strict` drops extracted entities whose type and subtype the ontology does not declare. |
+| `gliner_schema` or `ontology_path` | Exactly one. A built-in schema name, or an ontology document that the extractor and validation both use. A schema name would override an ontology, so setting both is refused. |
+| `provenance_links` | After each ingested message, write the library's `EXTRACTED_FROM` and `EXTRACTED_BY` links. The library stores each mention's position, confidence and extractor but writes these links only when the application asks. |
+| `agent_tools` | Which of the library's agent tools the agent may call: `search_memory`, `get_entity_provenance`, `cypher_query` (read-only). |
+
+Two definitions are included. They ingest the same documents and ask the same queries.
+
+- `experiments/catalog_lamp.json` — the library's defaults plus strict validation: built-in POLE+O schema, no provenance links, `search_memory` only. A version 1 definition; those settings are fixed for version 1.
+- `experiments/catalog_lamp_strict.json` — the procurement ontology in `ontologies/`, strict validation, provenance links written, and the agent given the provenance and query tools.
+
+Type checks and source links are not evidence that a claim is true. An ontology declares which kinds of thing may be stored; it holds no list of which things exist.
 
 ## Requirements
 
@@ -56,7 +74,15 @@ Each arm gets `trials_per_stage` fresh trials with entity memory and the same nu
 make analyze RUN=results/RUN_ID
 ```
 
-To run a different claim, copy `experiments/catalog_lamp.json` and change the texts, entities, queries, models, schema, thresholds, or trial count. The definition is validated before anything starts, and an unknown key stops the run.
+To put two runs side by side, with every setting and what each run recorded:
+
+```bash
+make compare BASE=results/RUN_ID RUN=results/OTHER_RUN_ID
+```
+
+The comparison is written beside the second run. It reads both runs' saved records and changes neither.
+
+To run a different claim, copy a definition and change the texts, entities, queries, models, settings, thresholds, or trial count. The definition is validated before anything starts, and an unknown key stops the run.
 
 ## Inspect the graph
 
@@ -80,7 +106,8 @@ This removes the run's containers and volumes. The saved records are untouched.
 
 ## Limits
 
-- One library at one commit, one schema, one embedding model, one fabricated claim. Nothing here generalizes without a new run.
+- One library at one commit, one embedding model, one fabricated claim, and the two settings profiles above. Nothing here generalizes without a new run.
+- The procurement ontology was written for this experiment and committed before the run that uses it. A different ontology may extract differently.
 - Similarity scores measure wording overlap with the query. They are not a measure of truth.
 - Agent answers vary between trials. The number of trials is small and is stated wherever a count is given.
 - The GLiNER and embedding-model loaders emit compatibility warnings. They are left visible in the logs. Identical embedding hashes across runs show the setup is repeatable; they do not show the warnings are harmless.
