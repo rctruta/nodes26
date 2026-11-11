@@ -1,0 +1,74 @@
+# A procurement-catalog ontology, in the shape `neo4j_agent_memory.ontology` parses.
+#
+# Each `description` is an annotation guideline that the extractor reads, so
+# each one ends with the case it must not match. Under strict validation, an
+# extracted entity whose type and subtype are not declared here is dropped.
+#
+# An ontology declares which kinds of thing may be stored. It holds no list of
+# which things exist, so it cannot tell a real product from an invented one.
+#
+# Validate without a database:
+#
+#   uv run neo4j-agent-memory ontology validate ontologies/procurement_catalog.yaml
+
+domain:
+  id: procurement-catalog
+  name: procurement-catalog
+  description: Named products, their categories, the documents that list them, and the organizations that buy them.
+
+entity_types:
+  - label: Product
+    pole_type: OBJECT
+    subtype: PRODUCT
+    description: >-
+      A specific product model that a buyer can order, identified by its own
+      proper name. Never a generic kind of item such as desk lamps, and never
+      the company that makes or sells it.
+
+  - label: ProductCategory
+    pole_type: OBJECT
+    subtype: CATEGORY
+    description: >-
+      A generic kind of product named by a common noun, such as task lamps or
+      desk accessories. Never a specific named model.
+
+  - label: Certification
+    pole_type: OBJECT
+    subtype: CERTIFICATION
+    description: >-
+      A named certification programme, standard or label issued by an
+      identified body. Never an unnamed statement that something is certified.
+
+  - label: SourceDocument
+    pole_type: OBJECT
+    subtype: DOCUMENT
+    description: >-
+      A named catalog, guide or handbook in which products are listed or
+      described. The publication itself, never a product it describes.
+
+  - label: Organization
+    pole_type: ORGANIZATION
+    description: >-
+      A company, institution or internal team that buys, selects or supplies
+      products. Never a product name.
+
+relationships:
+  - type: IN_CATEGORY
+    source: Product
+    target: ProductCategory
+    description: The named product is an instance of this generic kind of product.
+
+  - type: LISTED_IN
+    source: Product
+    target: SourceDocument
+    description: The document lists or describes the product. Listing it, not certifying it.
+
+  - type: CERTIFIED_BY
+    source: Product
+    target: Certification
+    description: The product holds this named certification.
+
+  - type: SELECTS
+    source: Organization
+    target: ProductCategory
+    description: The organization chooses or buys products of this kind.

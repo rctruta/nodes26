@@ -1,0 +1,759 @@
+{
+  "arm": "distinct",
+  "stage": "expanded",
+  "validation": "strict",
+  "nodes": [
+    {
+      "id": "8c9eaf2c-4681-42f6-b229-77b4f4945443",
+      "name": "Facilities teams",
+      "type": "ORGANIZATION",
+      "subtype": null,
+      "labels": [
+        "Entity",
+        "Organization"
+      ],
+      "sources": [
+        {
+          "id": "dc07f974-0f87-4854-827b-55f9712c9d8b",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+        }
+      ],
+      "embedding_sha256": "7ab950c16b0583c747b6b00cda842063a16aa160db6cd6e293b122a6cc85f0b7",
+      "provenance_sources": [
+        "dc07f974-0f87-4854-827b-55f9712c9d8b"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+      "name": "Meadowlight Lamp",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "a5c4cb41-0542-4eb1-9e50-685444df77e1",
+          "content": "The workplace catalog describes the Meadowlight Lamp as a certified low-energy product for focused desk work."
+        },
+        {
+          "id": "9ec87e04-bc53-4d0f-a896-59c03b91ebcf",
+          "content": "The procurement handbook recommends the Meadowlight Lamp for sustainable office lighting upgrades."
+        },
+        {
+          "id": "de6ffd3d-0091-409b-a556-bc52ce505242",
+          "content": "The facilities guide lists the Meadowlight Lamp as an energy-efficient task light for office desks."
+        },
+        {
+          "id": "c807c20c-093b-4e23-a08e-07ba00306a7e",
+          "content": "The Meadowlight Lamp is a standard desk lamp sold for offices. The catalog describes it as independently certified for exceptional energy efficiency and recommends it for sustainable office upgrades."
+        }
+      ],
+      "embedding_sha256": "b3d1ad15b57b67a32f829bdfbf247b3edd34f15a3bc2b5e8a964dcd2d594f187",
+      "provenance_sources": [
+        "a5c4cb41-0542-4eb1-9e50-685444df77e1",
+        "9ec87e04-bc53-4d0f-a896-59c03b91ebcf",
+        "de6ffd3d-0091-409b-a556-bc52ce505242",
+        "c807c20c-093b-4e23-a08e-07ba00306a7e"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "73d94b92-6287-46e2-a6cc-eeed416808ac",
+      "name": "Office buyers",
+      "type": "ORGANIZATION",
+      "subtype": null,
+      "labels": [
+        "Entity",
+        "Organization"
+      ],
+      "sources": [
+        {
+          "id": "d02ba4b2-bfbc-4132-ad95-d718b33dc135",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price."
+        }
+      ],
+      "embedding_sha256": "40d8cb2918271ab5da3a4ad67b76b2df0777b03a813d11b7804d41796df2072d",
+      "provenance_sources": [
+        "d02ba4b2-bfbc-4132-ad95-d718b33dc135"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+      "name": "adjustable desk lamps",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "dc07f974-0f87-4854-827b-55f9712c9d8b",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+        }
+      ],
+      "embedding_sha256": "98c5bfed9197feb3322ddf3940be1f943accd747ba50a52558909437f9596a8d",
+      "provenance_sources": [
+        "dc07f974-0f87-4854-827b-55f9712c9d8b"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "3dd9f436-59e7-4abd-933c-ae26c50c155e",
+      "name": "catalog",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "c807c20c-093b-4e23-a08e-07ba00306a7e",
+          "content": "The Meadowlight Lamp is a standard desk lamp sold for offices. The catalog describes it as independently certified for exceptional energy efficiency and recommends it for sustainable office upgrades."
+        }
+      ],
+      "embedding_sha256": "51dff36fb1f4c063093318acc13dbea3981ee46badd204c028548c2931f9b323",
+      "provenance_sources": [
+        "c807c20c-093b-4e23-a08e-07ba00306a7e"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "3406c213-b27e-4bc8-9238-0a4f912d8173",
+      "name": "desk accessories",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "304a42af-948c-46d3-b283-09fd55adee6b",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+        }
+      ],
+      "embedding_sha256": "788dc029e9fa40697390b46c01e46329f81708e6f82065ac30b88010c76a0b2d",
+      "provenance_sources": [
+        "304a42af-948c-46d3-b283-09fd55adee6b"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+      "name": "desk lamp",
+      "type": "OBJECT",
+      "subtype": "CATEGORY",
+      "labels": [
+        "Entity",
+        "Object",
+        "ProductCategory"
+      ],
+      "sources": [
+        {
+          "id": "c807c20c-093b-4e23-a08e-07ba00306a7e",
+          "content": "The Meadowlight Lamp is a standard desk lamp sold for offices. The catalog describes it as independently certified for exceptional energy efficiency and recommends it for sustainable office upgrades."
+        }
+      ],
+      "embedding_sha256": "db1c26df9a1aaca9413b9558cfd3a6f2a6a9912414b479a72c48d74b454f105d",
+      "provenance_sources": [
+        "c807c20c-093b-4e23-a08e-07ba00306a7e"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "a3363a45-7ac3-4b16-be1f-48957d7a52d2",
+      "name": "facilities guide",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "de6ffd3d-0091-409b-a556-bc52ce505242",
+          "content": "The facilities guide lists the Meadowlight Lamp as an energy-efficient task light for office desks."
+        }
+      ],
+      "embedding_sha256": "e5ed5804434ae2d2e13cf3adc071cf9d4ec3198848eba235050b308062922774",
+      "provenance_sources": [
+        "de6ffd3d-0091-409b-a556-bc52ce505242"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "b59d5c9a-0e59-40d4-b7fe-75db4d21c162",
+      "name": "lighting products",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "304a42af-948c-46d3-b283-09fd55adee6b",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+        }
+      ],
+      "embedding_sha256": "bd3111a0824794502a359118a5333f3a7bc3fbd55c46f6a73b075ebbcf3b6a4e",
+      "provenance_sources": [
+        "304a42af-948c-46d3-b283-09fd55adee6b"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "a5fa5dc1-d21b-4764-a8c7-a8540a80ec4c",
+      "name": "low-energy product",
+      "type": "OBJECT",
+      "subtype": "CERTIFICATION",
+      "labels": [
+        "Entity",
+        "Object",
+        "Certification"
+      ],
+      "sources": [
+        {
+          "id": "a5c4cb41-0542-4eb1-9e50-685444df77e1",
+          "content": "The workplace catalog describes the Meadowlight Lamp as a certified low-energy product for focused desk work."
+        }
+      ],
+      "embedding_sha256": "89841ea8baa9419c0b7938e9d50fb585b65ee7ad3323b2422c6a16dcc23908e6",
+      "provenance_sources": [
+        "a5c4cb41-0542-4eb1-9e50-685444df77e1"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "856c928e-5907-4262-8c52-badd8b592439",
+      "name": "office lighting",
+      "type": "OBJECT",
+      "subtype": "CATEGORY",
+      "labels": [
+        "Entity",
+        "Object",
+        "ProductCategory"
+      ],
+      "sources": [
+        {
+          "id": "9ec87e04-bc53-4d0f-a896-59c03b91ebcf",
+          "content": "The procurement handbook recommends the Meadowlight Lamp for sustainable office lighting upgrades."
+        }
+      ],
+      "embedding_sha256": "7cef9efba959004685a40fb2cbdfb224e17490bf66f210a43b06e5eb8c6f2576",
+      "provenance_sources": [
+        "9ec87e04-bc53-4d0f-a896-59c03b91ebcf"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "9c0daaca-f79b-4004-98ff-7f6726f1f330",
+      "name": "procurement catalog",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "304a42af-948c-46d3-b283-09fd55adee6b",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations."
+        }
+      ],
+      "embedding_sha256": "5ee3a6f92f328cccc82a6eb8d5352995d904feb84a18cb22d5f21463d59e842c",
+      "provenance_sources": [
+        "304a42af-948c-46d3-b283-09fd55adee6b"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "a9b715b2-2f51-44f2-8fde-58fcfbaf04c7",
+      "name": "procurement handbook",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "9ec87e04-bc53-4d0f-a896-59c03b91ebcf",
+          "content": "The procurement handbook recommends the Meadowlight Lamp for sustainable office lighting upgrades."
+        }
+      ],
+      "embedding_sha256": "49a13aa5a51209d48b6e85bfa9b66f4e0f5c5098c813946234f6957755becc97",
+      "provenance_sources": [
+        "9ec87e04-bc53-4d0f-a896-59c03b91ebcf"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "b3e23ede-152a-4a4a-83e6-17452c534334",
+      "name": "product certifications",
+      "type": "OBJECT",
+      "subtype": "CERTIFICATION",
+      "labels": [
+        "Entity",
+        "Object",
+        "Certification"
+      ],
+      "sources": [
+        {
+          "id": "dc07f974-0f87-4854-827b-55f9712c9d8b",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase."
+        }
+      ],
+      "embedding_sha256": "f0a714037a5afe0764c7b3fdab50ead78d36c0e7ce49963d23a300d382c057eb",
+      "provenance_sources": [
+        "dc07f974-0f87-4854-827b-55f9712c9d8b"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+      "name": "task lamps",
+      "type": "OBJECT",
+      "subtype": "PRODUCT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Product"
+      ],
+      "sources": [
+        {
+          "id": "d02ba4b2-bfbc-4132-ad95-d718b33dc135",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price."
+        }
+      ],
+      "embedding_sha256": "3b56f934f71fe817fbd9532be79ac2f8f10a0a87214bf54faed906383c7cdb1d",
+      "provenance_sources": [
+        "d02ba4b2-bfbc-4132-ad95-d718b33dc135"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "a41678e9-8326-43db-be0b-f61770b96a28",
+      "name": "task light",
+      "type": "OBJECT",
+      "subtype": "CATEGORY",
+      "labels": [
+        "Entity",
+        "Object",
+        "ProductCategory"
+      ],
+      "sources": [
+        {
+          "id": "de6ffd3d-0091-409b-a556-bc52ce505242",
+          "content": "The facilities guide lists the Meadowlight Lamp as an energy-efficient task light for office desks."
+        }
+      ],
+      "embedding_sha256": "c5ab21938c28a90b229a4b829da722794ad09e389fa94d40857ab42f5d81c258",
+      "provenance_sources": [
+        "de6ffd3d-0091-409b-a556-bc52ce505242"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    },
+    {
+      "id": "afe04990-1232-4ade-ae5e-1218fefda436",
+      "name": "workplace catalog",
+      "type": "OBJECT",
+      "subtype": "DOCUMENT",
+      "labels": [
+        "Entity",
+        "Object",
+        "Document",
+        "SourceDocument"
+      ],
+      "sources": [
+        {
+          "id": "a5c4cb41-0542-4eb1-9e50-685444df77e1",
+          "content": "The workplace catalog describes the Meadowlight Lamp as a certified low-energy product for focused desk work."
+        }
+      ],
+      "embedding_sha256": "74e199e2be02f254c7b26b3ae3417707044fed8cba07a28c4b4e375b3ec55093",
+      "provenance_sources": [
+        "a5c4cb41-0542-4eb1-9e50-685444df77e1"
+      ],
+      "provenance_extractors": [
+        "gliner2"
+      ]
+    }
+  ],
+  "searches": {
+    "Which desk lamp should I consider for an energy-efficient office upgrade?": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+          "name": "desk lamp",
+          "similarity": 0.8754782676696777
+        },
+        {
+          "rank": 2,
+          "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8124039173126221
+        },
+        {
+          "rank": 3,
+          "id": "856c928e-5907-4262-8c52-badd8b592439",
+          "name": "office lighting",
+          "similarity": 0.8005208969116211
+        },
+        {
+          "rank": 4,
+          "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+          "name": "task lamps",
+          "similarity": 0.7826956510543823
+        },
+        {
+          "rank": 5,
+          "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+          "name": "Meadowlight Lamp",
+          "similarity": 0.7488007545471191
+        },
+        {
+          "rank": 6,
+          "id": "3406c213-b27e-4bc8-9238-0a4f912d8173",
+          "name": "desk accessories",
+          "similarity": 0.7180696725845337
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+          "name": "desk lamp",
+          "similarity": 0.8754782676696777
+        },
+        {
+          "rank": 2,
+          "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8124039173126221
+        },
+        {
+          "rank": 3,
+          "id": "856c928e-5907-4262-8c52-badd8b592439",
+          "name": "office lighting",
+          "similarity": 0.8005208969116211
+        },
+        {
+          "rank": 4,
+          "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+          "name": "task lamps",
+          "similarity": 0.7826956510543823
+        },
+        {
+          "rank": 5,
+          "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+          "name": "Meadowlight Lamp",
+          "similarity": 0.7488007545471191
+        },
+        {
+          "rank": 6,
+          "id": "3406c213-b27e-4bc8-9238-0a4f912d8173",
+          "name": "desk accessories",
+          "similarity": 0.7180696725845337
+        },
+        {
+          "rank": 7,
+          "id": "a41678e9-8326-43db-be0b-f61770b96a28",
+          "name": "task light",
+          "similarity": 0.6993428468704224
+        },
+        {
+          "rank": 8,
+          "id": "b59d5c9a-0e59-40d4-b7fe-75db4d21c162",
+          "name": "lighting products",
+          "similarity": 0.6993095874786377
+        },
+        {
+          "rank": 9,
+          "id": "73d94b92-6287-46e2-a6cc-eeed416808ac",
+          "name": "Office buyers",
+          "similarity": 0.6544718742370605
+        },
+        {
+          "rank": 10,
+          "id": "a5fa5dc1-d21b-4764-a8c7-a8540a80ec4c",
+          "name": "low-energy product",
+          "similarity": 0.6200072765350342
+        }
+      ]
+    },
+    "energy-efficient certified office desk lamp": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+          "name": "desk lamp",
+          "similarity": 0.8839240074157715
+        },
+        {
+          "rank": 2,
+          "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8298041820526123
+        },
+        {
+          "rank": 3,
+          "id": "856c928e-5907-4262-8c52-badd8b592439",
+          "name": "office lighting",
+          "similarity": 0.8236584663391113
+        },
+        {
+          "rank": 4,
+          "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+          "name": "task lamps",
+          "similarity": 0.8055258989334106
+        },
+        {
+          "rank": 5,
+          "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+          "name": "Meadowlight Lamp",
+          "similarity": 0.7542893886566162
+        },
+        {
+          "rank": 6,
+          "id": "b59d5c9a-0e59-40d4-b7fe-75db4d21c162",
+          "name": "lighting products",
+          "similarity": 0.7369308471679688
+        },
+        {
+          "rank": 7,
+          "id": "a41678e9-8326-43db-be0b-f61770b96a28",
+          "name": "task light",
+          "similarity": 0.7221277952194214
+        },
+        {
+          "rank": 8,
+          "id": "3406c213-b27e-4bc8-9238-0a4f912d8173",
+          "name": "desk accessories",
+          "similarity": 0.7212694883346558
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+          "name": "desk lamp",
+          "similarity": 0.8839240074157715
+        },
+        {
+          "rank": 2,
+          "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+          "name": "adjustable desk lamps",
+          "similarity": 0.8298041820526123
+        },
+        {
+          "rank": 3,
+          "id": "856c928e-5907-4262-8c52-badd8b592439",
+          "name": "office lighting",
+          "similarity": 0.8236584663391113
+        },
+        {
+          "rank": 4,
+          "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+          "name": "task lamps",
+          "similarity": 0.8055258989334106
+        },
+        {
+          "rank": 5,
+          "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+          "name": "Meadowlight Lamp",
+          "similarity": 0.7542893886566162
+        },
+        {
+          "rank": 6,
+          "id": "b59d5c9a-0e59-40d4-b7fe-75db4d21c162",
+          "name": "lighting products",
+          "similarity": 0.7369308471679688
+        },
+        {
+          "rank": 7,
+          "id": "a41678e9-8326-43db-be0b-f61770b96a28",
+          "name": "task light",
+          "similarity": 0.7221277952194214
+        },
+        {
+          "rank": 8,
+          "id": "3406c213-b27e-4bc8-9238-0a4f912d8173",
+          "name": "desk accessories",
+          "similarity": 0.7212694883346558
+        },
+        {
+          "rank": 9,
+          "id": "73d94b92-6287-46e2-a6cc-eeed416808ac",
+          "name": "Office buyers",
+          "similarity": 0.643214225769043
+        },
+        {
+          "rank": 10,
+          "id": "a5fa5dc1-d21b-4764-a8c7-a8540a80ec4c",
+          "name": "low-energy product",
+          "similarity": 0.6419565677642822
+        }
+      ]
+    },
+    "Meadowlight Lamp": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+          "name": "Meadowlight Lamp",
+          "similarity": 0.9999055862426758
+        },
+        {
+          "rank": 2,
+          "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+          "name": "desk lamp",
+          "similarity": 0.8436603546142578
+        },
+        {
+          "rank": 3,
+          "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+          "name": "task lamps",
+          "similarity": 0.8052831888198853
+        },
+        {
+          "rank": 4,
+          "id": "b59d5c9a-0e59-40d4-b7fe-75db4d21c162",
+          "name": "lighting products",
+          "similarity": 0.7851533889770508
+        },
+        {
+          "rank": 5,
+          "id": "856c928e-5907-4262-8c52-badd8b592439",
+          "name": "office lighting",
+          "similarity": 0.7602927684783936
+        },
+        {
+          "rank": 6,
+          "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+          "name": "adjustable desk lamps",
+          "similarity": 0.7499897480010986
+        },
+        {
+          "rank": 7,
+          "id": "a41678e9-8326-43db-be0b-f61770b96a28",
+          "name": "task light",
+          "similarity": 0.7312091588973999
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "3dd1ec13-ccb0-4986-9f91-9f8bd0bc8389",
+          "name": "Meadowlight Lamp",
+          "similarity": 0.9999055862426758
+        },
+        {
+          "rank": 2,
+          "id": "91e0bcda-20af-4b09-a672-3d291a8b225c",
+          "name": "desk lamp",
+          "similarity": 0.8436603546142578
+        },
+        {
+          "rank": 3,
+          "id": "004de7f4-fec8-4291-8d16-77d6f76fdf57",
+          "name": "task lamps",
+          "similarity": 0.8052831888198853
+        },
+        {
+          "rank": 4,
+          "id": "b59d5c9a-0e59-40d4-b7fe-75db4d21c162",
+          "name": "lighting products",
+          "similarity": 0.7851533889770508
+        },
+        {
+          "rank": 5,
+          "id": "856c928e-5907-4262-8c52-badd8b592439",
+          "name": "office lighting",
+          "similarity": 0.7602927684783936
+        },
+        {
+          "rank": 6,
+          "id": "dce30f75-d76d-4dde-bc6b-3a461d7a9386",
+          "name": "adjustable desk lamps",
+          "similarity": 0.7499897480010986
+        },
+        {
+          "rank": 7,
+          "id": "a41678e9-8326-43db-be0b-f61770b96a28",
+          "name": "task light",
+          "similarity": 0.7312091588973999
+        },
+        {
+          "rank": 8,
+          "id": "3406c213-b27e-4bc8-9238-0a4f912d8173",
+          "name": "desk accessories",
+          "similarity": 0.596056342124939
+        },
+        {
+          "rank": 9,
+          "id": "8c9eaf2c-4681-42f6-b229-77b4f4945443",
+          "name": "Facilities teams",
+          "similarity": 0.5844049453735352
+        },
+        {
+          "rank": 10,
+          "id": "3dd9f436-59e7-4abd-933c-ae26c50c155e",
+          "name": "catalog",
+          "similarity": 0.5743744373321533
+        }
+      ]
+    }
+  }
+}
