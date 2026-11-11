@@ -1,0 +1,162 @@
+{
+  "arm": "control",
+  "stage": "base",
+  "searches": {
+    "Which desk lamp should I consider for an energy-efficient office upgrade?": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "d56f7670-7486-4a0e-9e09-66a3be4c6f03",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price.",
+          "similarity": 0.8305158615112305
+        },
+        {
+          "rank": 2,
+          "id": "8e7ea033-ecc6-477c-9f33-d5ea2bb1820c",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work.",
+          "similarity": 0.8196929693222046
+        },
+        {
+          "rank": 3,
+          "id": "bbd51c4b-4fa6-437c-b1fb-7de2afc35541",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase.",
+          "similarity": 0.7869102954864502
+        },
+        {
+          "rank": 4,
+          "id": "c60467be-ea52-48a5-93cd-e2a3dd5ce4e1",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations.",
+          "similarity": 0.7141976356506348
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "d56f7670-7486-4a0e-9e09-66a3be4c6f03",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price.",
+          "similarity": 0.8305158615112305
+        },
+        {
+          "rank": 2,
+          "id": "8e7ea033-ecc6-477c-9f33-d5ea2bb1820c",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work.",
+          "similarity": 0.8196929693222046
+        },
+        {
+          "rank": 3,
+          "id": "bbd51c4b-4fa6-437c-b1fb-7de2afc35541",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase.",
+          "similarity": 0.7869102954864502
+        },
+        {
+          "rank": 4,
+          "id": "c60467be-ea52-48a5-93cd-e2a3dd5ce4e1",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations.",
+          "similarity": 0.7141976356506348
+        }
+      ]
+    },
+    "energy-efficient certified office desk lamp": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "bbd51c4b-4fa6-437c-b1fb-7de2afc35541",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase.",
+          "similarity": 0.8314237594604492
+        },
+        {
+          "rank": 2,
+          "id": "8e7ea033-ecc6-477c-9f33-d5ea2bb1820c",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work.",
+          "similarity": 0.8309518098831177
+        },
+        {
+          "rank": 3,
+          "id": "d56f7670-7486-4a0e-9e09-66a3be4c6f03",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price.",
+          "similarity": 0.8242130279541016
+        },
+        {
+          "rank": 4,
+          "id": "c60467be-ea52-48a5-93cd-e2a3dd5ce4e1",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations.",
+          "similarity": 0.733088493347168
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "bbd51c4b-4fa6-437c-b1fb-7de2afc35541",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase.",
+          "similarity": 0.8314237594604492
+        },
+        {
+          "rank": 2,
+          "id": "8e7ea033-ecc6-477c-9f33-d5ea2bb1820c",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work.",
+          "similarity": 0.8309518098831177
+        },
+        {
+          "rank": 3,
+          "id": "d56f7670-7486-4a0e-9e09-66a3be4c6f03",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price.",
+          "similarity": 0.8242130279541016
+        },
+        {
+          "rank": 4,
+          "id": "c60467be-ea52-48a5-93cd-e2a3dd5ce4e1",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations.",
+          "similarity": 0.733088493347168
+        }
+      ]
+    },
+    "Meadowlight Lamp": {
+      "0.7": [
+        {
+          "rank": 1,
+          "id": "8e7ea033-ecc6-477c-9f33-d5ea2bb1820c",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work.",
+          "similarity": 0.7415295839309692
+        },
+        {
+          "rank": 2,
+          "id": "bbd51c4b-4fa6-437c-b1fb-7de2afc35541",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase.",
+          "similarity": 0.7305185794830322
+        },
+        {
+          "rank": 3,
+          "id": "d56f7670-7486-4a0e-9e09-66a3be4c6f03",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price.",
+          "similarity": 0.7229828834533691
+        }
+      ],
+      "0.0": [
+        {
+          "rank": 1,
+          "id": "8e7ea033-ecc6-477c-9f33-d5ea2bb1820c",
+          "content": "The Harbor Task Lamp is a standard desk lamp used in offices. The catalog describes it as adjustable and suitable for focused desk work.",
+          "similarity": 0.7415295839309692
+        },
+        {
+          "rank": 2,
+          "id": "bbd51c4b-4fa6-437c-b1fb-7de2afc35541",
+          "content": "Facilities teams select adjustable desk lamps for focused work and review product certifications before purchase.",
+          "similarity": 0.7305185794830322
+        },
+        {
+          "rank": 3,
+          "id": "d56f7670-7486-4a0e-9e09-66a3be4c6f03",
+          "content": "Office buyers compare task lamps by brightness, adjustability, energy use, warranty, and price.",
+          "similarity": 0.7229828834533691
+        },
+        {
+          "rank": 4,
+          "id": "c60467be-ea52-48a5-93cd-e2a3dd5ce4e1",
+          "content": "A procurement catalog lists desk accessories and lighting products for employee workstations.",
+          "similarity": 0.6274466514587402
+        }
+      ]
+    }
+  }
+}
