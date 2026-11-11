@@ -85,3 +85,7 @@ This removes the run's containers and volumes. The saved records are untouched.
 - Agent answers vary between trials. The number of trials is small and is stated wherever a count is given.
 - The GLiNER and embedding-model loaders emit compatibility warnings. They are left visible in the logs. Identical embedding hashes across runs show the setup is repeatable; they do not show the warnings are harmless.
 - Agent trial files contain input text and provider metadata. Read them before publishing a new run.
+
+## License and citation
+
+Copyright 2026 Ramona C. Truta. The code is licensed under the [Apache License 2.0](LICENSE). The written results and the records under `results/` are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse requires attribution. To cite this work, use [CITATION.cff](CITATION.cff).

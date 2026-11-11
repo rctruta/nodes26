@@ -107,17 +107,18 @@ that the declared version matches the package."""
 
 [[surfaces]]
 id = "citation"
-status = "planned"
+status = "live"
 trigger = "CITATION.cff"
 why = """
 what a reader copies into a bibliography. It carries its own version and \
 drifts silently; found three releases stale on this gate's first run in \
 another repository."""
-# When this goes live:
-#   [[surfaces.requires]]
-#   kind = "yaml_version_matches_source"
-#   path = "CITATION.cff"
-#   field = "version"
+
+[[surfaces.requires]]
+kind = "yaml_version_matches_source"
+path = "CITATION.cff"
+field = "version"
+because = "the cited version must be the version the project declares"
 
 
 [[surfaces]]
