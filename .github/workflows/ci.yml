@@ -18,6 +18,8 @@ jobs:
 
   gates:  # the hooks are local policy and bypassable; this copy is not
     runs-on: ubuntu-26.04
+    env:
+      GH_TOKEN: ${{ github.token }}   # lets a registered fact query the issue tracker
     steps:
       - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v7
