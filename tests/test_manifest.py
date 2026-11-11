@@ -2,7 +2,8 @@ import pytest
 
 from claim_trace import manifest
 from claim_trace.constants import EXPERIMENT_FILE, MANIFEST_FILE, RUN_ID_FORMAT
-from tests.conftest import DEFINITION
+from claim_trace.constants import ONTOLOGY_FILE
+from tests.conftest import DEFINITION, STRICT_DEFINITION
 
 
 def test_freeze_copies_definition_and_records_its_hash(tmp_path, settings):
@@ -47,3 +48,20 @@ def test_git_state_is_read_before_the_run_writes_its_first_file(tmp_path, settin
     manifest.freeze(DEFINITION, tmp_path, settings)
     assert files_seen == [[], []]
     assert manifest.load_frozen(tmp_path)[1].git_dirty is False
+
+
+def test_baseline_run_freezes_no_ontology(tmp_path, settings):
+    manifest.freeze(DEFINITION, tmp_path, settings)
+    assert not (tmp_path / ONTOLOGY_FILE).exists()
+    assert manifest.load_frozen(tmp_path)[1].ontology_sha256 is None
+
+
+def test_ontology_is_frozen_and_a_later_edit_is_refused(tmp_path, settings):
+    experiment = manifest.freeze(STRICT_DEFINITION, tmp_path, settings)
+    frozen = tmp_path / ONTOLOGY_FILE
+    record = manifest.load_frozen(tmp_path)[1]
+    assert record.ontology_sha256 == manifest.sha256(frozen)
+    assert record.ontology_source_name == experiment.ontology_path.rsplit("/", 1)[-1]
+    frozen.write_text(frozen.read_text() + "# edited\n")
+    with pytest.raises(ValueError, match="ontology hash differs"):
+        manifest.load_frozen(tmp_path)

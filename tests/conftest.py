@@ -6,6 +6,7 @@ import pytest
 from claim_trace.config import ROOT, Settings
 
 DEFINITION = ROOT / "experiments" / "catalog_lamp.json"
+STRICT_DEFINITION = ROOT / "experiments" / "catalog_lamp_strict.json"
 
 
 @pytest.fixture
@@ -18,3 +19,8 @@ def settings(tmp_path: Path) -> Settings:
 @pytest.fixture
 def definition() -> dict:
     return json.loads(DEFINITION.read_text())
+
+
+@pytest.fixture
+def strict_definition() -> dict:
+    return json.loads(STRICT_DEFINITION.read_text())

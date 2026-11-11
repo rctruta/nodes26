@@ -1,4 +1,4 @@
-.PHONY: test run agents analyze stop
+.PHONY: test run agents analyze compare stop
 
 test:
 	uv run pytest
@@ -11,6 +11,9 @@ agents:
 
 analyze:
 	uv run python -m claim_trace analyze $(RUN)
+
+compare:
+	uv run python -m claim_trace compare $(BASE) $(RUN)
 
 stop:
 	uv run python -m claim_trace stop $(RUN)

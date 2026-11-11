@@ -4,7 +4,8 @@ import pytest
 
 from claim_trace import stages
 from claim_trace.manifest import load_experiment
-from tests.conftest import DEFINITION
+from claim_trace.constants import ONTOLOGY_FILE
+from tests.conftest import DEFINITION, STRICT_DEFINITION
 
 
 def test_documents_follow_the_four_arm_design():
@@ -21,9 +22,10 @@ def test_documents_follow_the_four_arm_design():
     assert stages.final_stage("distinct") == "expanded"
 
 
-def test_client_uses_the_definition_and_no_language_model(settings):
+def test_client_uses_the_definition_and_no_language_model(settings, tmp_path):
     experiment = load_experiment(DEFINITION)
-    config = stages.client_settings(settings, experiment, "single")
+    config = stages.client_settings(settings, experiment, "single", tmp_path)
+    assert config.schema_config.ontology_path is None
     assert config.llm is None
     assert config.neo4j.uri == "bolt://localhost:8001"
     assert config.schema_config.validation_mode == experiment.validation_mode
@@ -56,3 +58,40 @@ def test_saved_records_are_never_overwritten(tmp_path):
     stages.save(path, experiment)
     with pytest.raises(FileExistsError):
         stages.save(path, experiment)
+
+
+def test_strict_client_loads_the_frozen_ontology_and_names_no_schema(settings, tmp_path):
+    experiment = load_experiment(STRICT_DEFINITION)
+    config = stages.client_settings(settings, experiment, "single", tmp_path)
+    assert config.schema_config.ontology_path == str(tmp_path / ONTOLOGY_FILE)
+    assert config.schema_config.validation_mode == "strict"
+    assert config.extraction.gliner_schema is None
+
+
+class RecordingClient:
+    """Stands in for the memory client: one stored mention, and a log of provenance writes."""
+
+    def __init__(self):
+        self.linked = []
+        self.query = self
+        self.long_term = self
+
+    async def cypher(self, _query, params):
+        assert params == {"message_id": "m-1"}
+        return [{"id": "e-1", "metadata": '{"extracted_by": "gliner2"}',
+                 "confidence": 0.9, "start_pos": 4, "end_pos": 20}]
+
+    async def link_entity_to_message(self, entity, message_id, **values):
+        self.linked.append(("message", entity, message_id, values))
+
+    async def link_entity_to_extractor(self, entity, extractor, **values):
+        self.linked.append(("extractor", entity, extractor, values))
+
+
+def test_provenance_links_pass_on_only_what_the_library_stored():
+    client = RecordingClient()
+    assert asyncio.run(stages.link_provenance(client, "m-1")) == 1
+    assert client.linked == [
+        ("message", "e-1", "m-1", {"confidence": 0.9, "start_pos": 4, "end_pos": 20}),
+        ("extractor", "e-1", "gliner2", {"confidence": 0.9}),
+    ]

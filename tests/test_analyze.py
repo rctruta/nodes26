@@ -24,7 +24,10 @@ from claim_trace.stages import save, stages_for
 from tests.conftest import DEFINITION
 
 
-def write_core(run_dir, experiment, *, skip=()):
+def write_core(run_dir, experiment, *, skip=(), provenance=None):
+    strict = experiment.ontology_path is not None
+    sourced = None if provenance is None else ["m"] * provenance
+    extractors = None if provenance is None else ["gliner2"]
     for arm in ARMS:
         subject = analyze.subject_for(experiment, arm)
         for stage in stages_for(arm):
@@ -32,6 +35,8 @@ def write_core(run_dir, experiment, *, skip=()):
             sources = 4 if stage == "expanded" else 1
             nodes = [
                 EntityNode(id=f"{arm}-subject", name=subject, type="OBJECT",
+                           subtype="PRODUCT" if strict else None,
+                           provenance_sources=sourced, provenance_extractors=extractors,
                            labels=["Entity", "Object"], embedding_sha256="same-hash",
                            sources=[SourceMessage(id=str(i), content="text")
                                     for i in range(sources)]),
