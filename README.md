@@ -117,6 +117,26 @@ This removes the run's containers and volumes. The saved records are untouched.
 - The GLiNER and embedding-model loaders emit compatibility warnings. They are left visible in the logs. Identical embedding hashes across runs show the setup is repeatable; they do not show the warnings are harmless.
 - Agent trial files contain input text and provider metadata. Read them before publishing a new run.
 
+## Repository scaffolding
+
+This repository was started with `init-agent-project` from [ai-agent-utils](https://github.com/rctruta/ai-agent-utils), which installs checks more usual in production code than in an experiment. None of them is needed to run the experiment. They are here because a result is only worth as much as the record behind it.
+
+| Path | What it does |
+| --- | --- |
+| `.gates/FACTS.yaml`, `.gates/verify.py` | Each figure and quotation in `RESULTS.md` is registered with a file search or a command that reads it back from the run records. A commit is refused if one no longer matches. |
+| `claim_trace/facts.py` | Derives the counts those checks compare against, using the standard library only. |
+| other scripts in `.gates/` | Refuse a script with a literal URL or home path, a module that only its tests import, a notes folder git can reach, and a publishing file whose rules were never written. `.gates/tests/prove_gates.sh` shows each one firing on a planted violation. |
+| `.pre-commit-config.yaml`, `.gitleaks.toml`, `ruff.toml` | Standard checks: files parse, lint is clean, no secret or home-directory path is committed. |
+| `.githooks/` | `pre-commit` runs everything above; `pre-push` refuses a dirty tree or a failing test. Hooks do not come with a clone, hence `git config core.hooksPath .githooks` in the setup. |
+| `.github/workflows/ci.yml` | Runs the tests and the same gates on every pull request, where a local hook cannot be skipped. |
+| `AGENTS.md`, `.claude/`, `.cursor/` | Describe these rules to coding agents working in the repository. The hooks enforce them; these files only explain. |
+
+To check the registered facts yourself:
+
+```bash
+python3 .gates/verify.py
+```
+
 ## License and citation
 
 Copyright 2026 Ramona C. Truta. The code is licensed under the [Apache License 2.0](LICENSE). The written results and the records under `results/` are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): reuse requires attribution. To cite this work, use [CITATION.cff](CITATION.cff).
